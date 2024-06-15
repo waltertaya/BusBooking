@@ -9,3 +9,7 @@ module.exports.signup_get = (req, res) => {
 module.exports.landing_get = (req, res) => {
     res.render('landingPage');
 };
+
+module.exports.booking_get = (req, res) => {
+    res.render('booking');
+};

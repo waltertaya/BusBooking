@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bus Booking - Book a Ticket</title>
+    <link rel="stylesheet" href="home.css">
+</head>
+<body>
+    <div class="booking-container">
+        <header>
+            <h1>Book Your Bus Ticket</h1>
+            <p>Select your journey details and proceed to payment</p>
+        </header>
+        <main>
+            <form id="bookingForm">
+                <label for="from">From:</label>
+                <select id="from" name="from" required>
+                    <option value="" disabled selected>Select your departure</option>
+                    <option value="CityA">City A</option>
+                    <option value="CityB">City B</option>
+                    <option value="CityC">City C</option>
+                </select>
+
+                <label for="to">To:</label>
+                <select id="to" name="to" required>
+                    <option value="" disabled selected>Select your destination</option>
+                    <option value="CityX">City X</option>
+                    <option value="CityY">City Y</option>
+                    <option value="CityZ">City Z</option>
+                </select>
+
+                <label for="bus">Available Buses:</label>
+                <select id="bus" name="bus" required>
+                    <!-- Buses will be loaded here via JavaScript -->
+                </select>
+
+                <div id="busDetails" style="display: none;">
+                    <p><strong>Time:</strong> <span id="time"></span></p>
+                    <p><strong>Price:</strong> $<span id="price"></span></p>
+                </div>
+
+                <label for="card">Card Number:</label>
+                <input type="text" id="card" name="card" placeholder="Card Number" required>
+
+                <label for="expiry">Expiry Date:</label>
+                <input type="text" id="expiry" name="expiry" placeholder="MM/YY" required>
+
+                <label for="cvv">CVV:</label>
+                <input type="text" id="cvv" name="cvv" placeholder="CVV" required>
+
+                <button type="submit">Pay Now</button>
+            </form>
+        </main>
+    </div>
+    <script>
+        const buses = {
+            CityA: [{ name: 'Bus 1', time: '10:00 AM', price: 30 }, { name: 'Bus 2', time: '2:00 PM', price: 35 }],
+            CityB: [{ name: 'Bus 3', time: '9:00 AM', price: 25 }, { name: 'Bus 4', time: '5:00 PM', price: 40 }],
+            CityC: [{ name: 'Bus 5', time: '8:00 AM', price: 20 }, { name: 'Bus 6', time: '4:00 PM', price: 45 }]
+        };
+
+        document.getElementById('from').addEventListener('change', loadBuses);
+        document.getElementById('to').addEventListener('change', loadBuses);
+        document.getElementById('bus').addEventListener('change', displayBusDetails);
+
+        function loadBuses() {
+            const from = document.getElementById('from').value;
+            const to = document.getElementById('to').value;
+            const busSelect = document.getElementById('bus');
+            busSelect.innerHTML = '<option value="" disabled selected>Select a bus</option>';
+
+            if (from && to && from !== to) {
+                buses[from].forEach(bus => {
+                    const option = document.createElement('option');
+                    option.value = bus.name;
+                    option.dataset.time = bus.time;
+                    option.dataset.price = bus.price;
+                    option.textContent = `${bus.name} - ${bus.time} - $${bus.price}`;
+                    busSelect.appendChild(option);
+                });
+                busSelect.parentElement.style.display = 'block';
+            } else {
+                busSelect.parentElement.style.display = 'none';
+                document.getElementById('busDetails').style.display = 'none';
+            }
+        }
+
+        function displayBusDetails() {
+            const selectedBus = document.getElementById('bus').selectedOptions[0];
+            if (selectedBus) {
+                document.getElementById('time').textContent = selectedBus.dataset.time;
+                document.getElementById('price').textContent = selectedBus.dataset.price;
+                document.getElementById('busDetails').style.display = 'block';
+            } else {
+                document.getElementById('busDetails').style.display = 'none';
+            }
+        }
+
+        document.getElementById('bookingForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            alert('Payment successful!');
+        });
+    </script>
+</body>
+</html>
