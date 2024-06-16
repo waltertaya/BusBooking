@@ -9,98 +9,95 @@
 <body>
     <div class="booking-container">
         <header>
-            <h1>Book Your Bus Ticket</h1>
-            <p>Select your journey details and proceed to payment</p>
+            <h1>Book affordable buses, trains & flights.</h1>
+            <form id="searchForm">
+                <div class="form-group">
+                    <input type="text" id="from" name="from" placeholder="From" required>
+                    <ul class="dropdown">
+                        <li>Nairobi</li>
+                        <li>Mombasa</li>
+                        <li>Kisumu</li>
+                        <li>Busia</li>
+                        <li>Sirare</li>
+                        <li>Mumias</li>
+                        <li>Malaba</li>
+                    </ul>
+                </div>
+                <div class="form-group">
+                    <input type="text" id="to" name="to" placeholder="To" required>
+                </div>
+                <div class="form-group">
+                    <input type="date" id="date" name="date" required>
+                </div>
+                <div class="form-group">
+                    <input type="checkbox" id="return" name="return">
+                    <label for="return">Add Return</label>
+                </div>
+                <button type="submit">Search</button>
+            </form>
         </header>
         <main>
-            <form id="bookingForm">
-                <label for="from">From:</label>
-                <select id="from" name="from" required>
-                    <option value="" disabled selected>Select your departure</option>
-                    <option value="CityA">City A</option>
-                    <option value="CityB">City B</option>
-                    <option value="CityC">City C</option>
-                </select>
-
-                <label for="to">To:</label>
-                <select id="to" name="to" required>
-                    <option value="" disabled selected>Select your destination</option>
-                    <option value="CityX">City X</option>
-                    <option value="CityY">City Y</option>
-                    <option value="CityZ">City Z</option>
-                </select>
-
-                <label for="bus">Available Buses:</label>
-                <select id="bus" name="bus" required>
-                    <!-- Buses will be loaded here via JavaScript -->
-                </select>
-
-                <div id="busDetails" style="display: none;">
-                    <p><strong>Time:</strong> <span id="time"></span></p>
-                    <p><strong>Price:</strong> $<span id="price"></span></p>
+            <section id="availableBuses">
+                <h2>Nairobi → Kisumu one way trip</h2>
+                <div class="bus-list">
+                    <div class="bus-item">
+                        <div class="bus-info">
+                            <h3>EasyCoach</h3>
+                            <p>NAIROBI → KISUMU</p>
+                            <p>6:45 AM - 1:00 PM</p>
+                            <p>Remaining Seats: 45</p>
+                        </div>
+                        <div class="bus-price">
+                            <p>KSH 1750.00</p>
+                            <button>Select Seat</button>
+                        </div>
+                    </div>
+                    <div class="bus-item">
+                        <div class="bus-info">
+                            <h3>Greenline</h3>
+                            <p>NAIROBI → KISUMU</p>
+                            <p>8:00 AM - 6:00 PM</p>
+                            <p>Remaining Seats: 67</p>
+                        </div>
+                        <div class="bus-price">
+                            <p>KSH 1000.00</p>
+                            <button>Select Seat</button>
+                        </div>
+                    </div>
+                    <!-- Repeat for other bus options -->
                 </div>
-
-                <label for="card">Card Number:</label>
-                <input type="text" id="card" name="card" placeholder="Card Number" required>
-
-                <label for="expiry">Expiry Date:</label>
-                <input type="text" id="expiry" name="expiry" placeholder="MM/YY" required>
-
-                <label for="cvv">CVV:</label>
-                <input type="text" id="cvv" name="cvv" placeholder="CVV" required>
-
-                <button type="submit">Pay Now</button>
-            </form>
+            </section>
+            <section id="passengerDetails" style="display: none;">
+                <h2>Passenger Details</h2>
+                <form id="detailsForm">
+                    <label for="firstName">First Name:</label>
+                    <input type="text" id="firstName" name="firstName" required>
+                    
+                    <label for="lastName">Last Name:</label>
+                    <input type="text" id="lastName" name="lastName" required>
+                    
+                    <label for="phoneNumber">Phone Number:</label>
+                    <input type="text" id="phoneNumber" name="phoneNumber" required>
+                    
+                    <label for="idNumber">ID Number or Passport:</label>
+                    <input type="text" id="idNumber" name="idNumber" required>
+                    
+                    <label for="nationality">Nationality:</label>
+                    <input type="text" id="nationality" name="nationality" required>
+                    
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email">
+                    
+                    <label for="fullName">Full Name:</label>
+                    <input type="text" id="fullName" name="fullName" required>
+                    
+                    <label for="mpesaNumber">Mpesa Number:</label>
+                    <input type="text" id="mpesaNumber" name="mpesaNumber" required>
+                    
+                    <button type="submit">Go to Payment</button>
+                </form>
+            </section>
         </main>
     </div>
-    <script>
-        const buses = {
-            CityA: [{ name: 'Bus 1', time: '10:00 AM', price: 30 }, { name: 'Bus 2', time: '2:00 PM', price: 35 }],
-            CityB: [{ name: 'Bus 3', time: '9:00 AM', price: 25 }, { name: 'Bus 4', time: '5:00 PM', price: 40 }],
-            CityC: [{ name: 'Bus 5', time: '8:00 AM', price: 20 }, { name: 'Bus 6', time: '4:00 PM', price: 45 }]
-        };
-
-        document.getElementById('from').addEventListener('change', loadBuses);
-        document.getElementById('to').addEventListener('change', loadBuses);
-        document.getElementById('bus').addEventListener('change', displayBusDetails);
-
-        function loadBuses() {
-            const from = document.getElementById('from').value;
-            const to = document.getElementById('to').value;
-            const busSelect = document.getElementById('bus');
-            busSelect.innerHTML = '<option value="" disabled selected>Select a bus</option>';
-
-            if (from && to && from !== to) {
-                buses[from].forEach(bus => {
-                    const option = document.createElement('option');
-                    option.value = bus.name;
-                    option.dataset.time = bus.time;
-                    option.dataset.price = bus.price;
-                    option.textContent = `${bus.name} - ${bus.time} - $${bus.price}`;
-                    busSelect.appendChild(option);
-                });
-                busSelect.parentElement.style.display = 'block';
-            } else {
-                busSelect.parentElement.style.display = 'none';
-                document.getElementById('busDetails').style.display = 'none';
-            }
-        }
-
-        function displayBusDetails() {
-            const selectedBus = document.getElementById('bus').selectedOptions[0];
-            if (selectedBus) {
-                document.getElementById('time').textContent = selectedBus.dataset.time;
-                document.getElementById('price').textContent = selectedBus.dataset.price;
-                document.getElementById('busDetails').style.display = 'block';
-            } else {
-                document.getElementById('busDetails').style.display = 'none';
-            }
-        }
-
-        document.getElementById('bookingForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            alert('Payment successful!');
-        });
-    </script>
 </body>
 </html>

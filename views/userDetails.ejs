@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ticket Booking Form</title>
+    <link rel="stylesheet" href="userDetails.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Nairobi → Kisumu one way trip</h1>
+        <div class="note">Note: Any passenger above the age of 3 years, requires a valid ticket</div>
+        <div class="form-container">
+            <div class="passenger-details">
+                <h2>Passenger Details</h2>
+                <div class="seat-details">Passenger 1 details Seat 6A</div>
+                <form>
+                    <div class="form-group">
+                        <label for="firstname">Firstname</label>
+                        <input type="text" id="firstname" placeholder="First Name">
+                    </div>
+                    <div class="form-group">
+                        <label for="lastname">Lastname</label>
+                        <input type="text" id="lastname" placeholder="Last Name">
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone number</label>
+                        <input type="text" id="phone" placeholder="e.g 0722000000">
+                    </div>
+                    <div class="form-group">
+                        <label for="idpassport">ID number or Passport</label>
+                        <input type="text" id="idpassport" placeholder="ID/Passport">
+                    </div>
+                    <div class="form-group">
+                        <label for="nationality">Nationality</label>
+                        <select id="nationality">
+                            <option value="">Select</option>
+                            <!-- Add more options as needed -->
+                        </select>
+                    </div>
+                    <h2>Payment Details</h2>
+                    <div class="form-group">
+                        <label for="email">Email (Optional, We will send ticket confirmation)</label>
+                        <input type="email" id="email" placeholder="Email">
+                    </div>
+                    <div class="form-group">
+                        <label for="fullname">Full name</label>
+                        <input type="text" id="fullname" placeholder="Full Name">
+                    </div>
+                    <div class="form-group">
+                        <label for="mpesa">Mpesa number</label>
+                        <input type="text" id="mpesa" placeholder="Mpesa number">
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="terms">
+                        <label for="terms">By continuing, you agree to the <a href="#">Terms and Conditions</a>.</label>
+                    </div>
+                    <button type="submit" class="submit-button" disabled>GO TO PAYMENT</button>
+                </form>
+            </div>
+            <div class="ticket-details">
+                <div class="details-box">
+                    <h3>Departure</h3>
+                    <p>NAIROBI</p>
+                    <p>19-06-2024</p>
+                </div>
+                <div class="details-box">
+                    <h3>Dropoff</h3>
+                    <p>BUSIA</p>
+                    <p>19-06-2024</p>
+                </div>
+                <div class="details-box">
+                    <h3>One-Way Ticket</h3>
+                    <p>Selected seat(s) No.</p>
+                    <p>6A</p>
+                </div>
+                <div class="details-box">
+                    <h3>Total</h3>
+                    <p>KES 1750</p>
+                </div>
+                <div class="note">
+                    Please Note: Once seats are selected and paid for, they cannot be changed. Tickets are non-refundable.
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

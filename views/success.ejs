@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Confirmation</title>
+    <link rel="stylesheet" href="success.css">
+</head>
+<body>
+    <div class="container">
+        <div class="success-message">
+            <h1>Booking Confirmed!</h1>
+            <p>Thank you for booking with us. Your seat has been successfully reserved.</p>
+            <div class="ticket-info">
+                <p><strong>Departure:</strong> Nairobi</p>
+                <p><strong>Dropoff:</strong> Busia</p>
+                <p><strong>Date:</strong> 19-06-2024</p>
+                <p><strong>Seat No:</strong> 6A</p>
+                <p><strong>Total:</strong> KES 1750</p>
+            </div>
+            <button onclick="downloadTicket()">Download Ticket</button>
+        </div>
+    </div>
+
+    <script>
+        function downloadTicket() {
+            alert("Downloading ticket...");
+            // Add your logic for downloading the ticket here.
+        }
+    </script>
+</body>
+</html>
