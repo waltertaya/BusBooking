@@ -3,7 +3,11 @@ const mongoose = require('mongoose');
 const session = require('express-session');
 // const mysql = require('mysql');
 const routes = require('./routes/routes');
+const api = require('./routes/api');
+// const newData = require('./dummyData/data');
 require('dotenv').config()
+
+// newData();
 
 
 // const db = mysql.createConnection({
@@ -48,6 +52,7 @@ app.use(session({
     saveUninitialized: false
 }));
 
+app.use('/api', api);
 app.use('/', routes);
 
 app.listen(port, () => {
