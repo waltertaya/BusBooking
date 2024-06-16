@@ -21,16 +21,17 @@ module.exports.booking_get = (req, res) => {
 };
 
 module.exports.userDetails_get = (req, res) => {
-    const seat = req.query.seat;
+    // http://localhost:8000/details?name=GreenLine&from=NAIROBI&to=KISUMU&time=6%3A45AM+-+1%3A00PM&price=1000&seat=4A
+    const { seat, name, from, to, time, price, ways, date } = req.query;
     // console.log(seat);
-    res.render('userDetails', { seat });
+    res.render('userDetails', { seat, name, from, to, time, ways, date, price });
 };
 
 module.exports.seatSelection_get = (req, res) => {
    // http://localhost:8000/seats?name=EasyCoach&from=NAIROBI&to=KISUMU&1750&time=6:45AM%20-%201:00PM&
-    const { name, from, to, time, price } = req.query;
-    console.log(`name: ${name}, from: ${from}, to: ${to}, time: ${time}, price: ${price}`);
-    res.render('seats', { name, from, to, time, price });
+    const { name, from, to, time, price, ways, date } = req.query;
+    // console.log(`name: ${name}, from: ${from}, to: ${to}, time: ${time}, price: ${price}`);
+    res.render('seats', { name, from, to, time, price, ways, date });
 };
 
 module.exports.successBook_get = (req, res) => {
@@ -80,5 +81,5 @@ module.exports.booking_post = async (req, res) => {
         ways = "two";
     }
 
-    res.render('booking', { buses, ways })
+    res.render('booking', { buses, ways, date })
 };

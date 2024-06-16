@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="seats.css">
 </head>
 <body>
-    <!-- { name, from, to, time } -->
     <div class="seat-selection-container">
         <header>
             <h2>Select a seat (<%= name %>)</h2>
@@ -69,7 +68,8 @@
         </div>
         <footer class="footer">
             <span class="price">KES <%= price %>.00</span>
-            <a id="proceedLink" href="/details">
+            <!-- { name, from, to, time, price } -->
+            <a id="proceedLink" href="/details?name=<%= name %>&from=<%= from %>&to=<%= to %>&time=<%= time %>&price=<%= price %>&ways=<%= ways %>&date=<%= date %>">
                 <button class="proceed-btn">Proceed to Pay</button>
             </a>
         </footer>
@@ -86,7 +86,9 @@
                     seats.forEach(s => s.classList.remove('selected'));
                     seat.classList.add('selected');
                     selectedSeat = seat.getAttribute('data-seat');
-                    proceedLink.setAttribute('href', `/details?seat=${selectedSeat}`);
+                    const url = new URL(proceedLink.href);
+                    url.searchParams.set('seat', selectedSeat);
+                    proceedLink.href = url.toString();
                 });
             });
         });

@@ -7,8 +7,9 @@
     <link rel="stylesheet" href="userDetails.css">
 </head>
 <body>
+    <!-- { seat, name, from, to, time } -->
     <div class="container">
-        <h1>Nairobi → Kisumu one way trip</h1>
+        <h1><%= from %> → <%= to %> <%= ways %> way trip</h1>
         <div class="note">Note: Any passenger above the age of 3 years, requires a valid ticket</div>
         <div class="form-container">
             <div class="passenger-details">
@@ -59,23 +60,24 @@
             </div>
             <div class="ticket-details">
                 <div class="details-box">
+                    <!-- { seat, name, from, to, time } -->
                     <h3>Departure</h3>
-                    <p>NAIROBI</p>
-                    <p>19-06-2024</p>
+                    <p><%= from %></p>
+                    <p><%= date %></p>
                 </div>
                 <div class="details-box">
                     <h3>Dropoff</h3>
-                    <p>BUSIA</p>
-                    <p>19-06-2024</p>
+                    <p><%= to %></p>
+                    <p><%= date %></p>
                 </div>
                 <div class="details-box">
-                    <h3>One-Way Ticket</h3>
+                    <h3><%= ways %>-Way Ticket</h3>
                     <p>Selected seat(s) No.</p>
                     <p><%= seat %></p>
                 </div>
                 <div class="details-box">
                     <h3>Total</h3>
-                    <p>KES 1750</p>
+                    <p>KES  <%= price %>.00</p>
                 </div>
                 <div class="note">
                     Please Note: Once seats are selected and paid for, they cannot be changed. Tickets are non-refundable.
