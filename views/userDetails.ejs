@@ -13,7 +13,7 @@
         <div class="form-container">
             <div class="passenger-details">
                 <h2>Passenger Details</h2>
-                <div class="seat-details">Passenger 1 details Seat 6A</div>
+                <div class="seat-details">Passenger 1 details Seat <%= seat %></div>
                 <form>
                     <div class="form-group">
                         <label for="firstname">Firstname</label>
@@ -35,7 +35,6 @@
                         <label for="nationality">Nationality</label>
                         <select id="nationality">
                             <option value="">Select</option>
-                            <!-- Add more options as needed -->
                         </select>
                     </div>
                     <h2>Payment Details</h2>
@@ -72,7 +71,7 @@
                 <div class="details-box">
                     <h3>One-Way Ticket</h3>
                     <p>Selected seat(s) No.</p>
-                    <p>6A</p>
+                    <p><%= seat %></p>
                 </div>
                 <div class="details-box">
                     <h3>Total</h3>

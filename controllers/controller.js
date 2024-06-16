@@ -21,11 +21,16 @@ module.exports.booking_get = (req, res) => {
 };
 
 module.exports.userDetails_get = (req, res) => {
-    res.render('userDetails');
+    const seat = req.query.seat;
+    // console.log(seat);
+    res.render('userDetails', { seat });
 };
 
 module.exports.seatSelection_get = (req, res) => {
-    res.render('seats');
+   // http://localhost:8000/seats?name=EasyCoach&from=NAIROBI&to=KISUMU&1750&time=6:45AM%20-%201:00PM&
+    const { name, from, to, time, price } = req.query;
+    console.log(`name: ${name}, from: ${from}, to: ${to}, time: ${time}, price: ${price}`);
+    res.render('seats', { name, from, to, time, price });
 };
 
 module.exports.successBook_get = (req, res) => {

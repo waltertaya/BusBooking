@@ -7,27 +7,48 @@
     <link rel="stylesheet" href="seats.css">
 </head>
 <body>
+    <!-- { name, from, to, time } -->
     <div class="seat-selection-container">
         <header>
-            <h2>Select a seat (EasyCoach)</h2>
-            <button class="close-btn">&times;</button>
+            <h2>Select a seat (<%= name %>)</h2>
+            <a href="/">
+                <button class="close-btn">&times;</button>
+            </a>
         </header>
         <div class="seats">
             <div class="seat-row">
                 <div class="seat" data-seat="1A">1A</div>
-                <div class="seat" data-seat="1B">1B</div>
+                <div class="seat" data-seat="1B" style="margin-right: 50px;">1B</div>
                 <div class="seat" data-seat="1C">1C</div>
                 <div class="seat" data-seat="1D">1D</div>
             </div>
             <div class="seat-row">
                 <div class="seat" data-seat="2A">2A</div>
-                <div class="seat" data-seat="2B">2B</div>
+                <div class="seat" data-seat="2B" style="margin-right: 50px;">2B</div>
                 <div class="seat" data-seat="2C">2C</div>
                 <div class="seat" data-seat="2D">2D</div>
             </div>
             <div class="seat-row">
-                <div class="seat" data-seat="6A" style="background-color: #ff3366;">6A</div>
-                <div class="seat" data-seat="6B">6B</div>
+                <div class="seat" data-seat="3A">3A</div>
+                <div class="seat" data-seat="3B" style="margin-right: 50px;">3B</div>
+                <div class="seat" data-seat="3C">3C</div>
+                <div class="seat" data-seat="3D">3D</div>
+            </div>
+            <div class="seat-row">
+                <div class="seat" data-seat="4A">4A</div>
+                <div class="seat" data-seat="4B" style="margin-right: 50px;">4B</div>
+                <div class="seat" data-seat="4C">4C</div>
+                <div class="seat" data-seat="4D">4D</div>
+            </div>
+            <div class="seat-row">
+                <div class="seat" data-seat="5A">5A</div>
+                <div class="seat" data-seat="5B" style="margin-right: 50px;">5B</div>
+                <div class="seat" data-seat="5C">5C</div>
+                <div class="seat" data-seat="5D">5D</div>
+            </div>
+            <div class="seat-row">
+                <div class="seat" data-seat="6A">6A</div>
+                <div class="seat" data-seat="6B" style="margin-right: 50px;">6B</div>
                 <div class="seat" data-seat="6C">6C</div>
                 <div class="seat" data-seat="6D">6D</div>
             </div>
@@ -46,12 +67,29 @@
                 <span>Occupied</span>
             </div>
         </div>
-        <footer>
-            <span class="price">KES 1750</span>
-            <a href="/details">
+        <footer class="footer">
+            <span class="price">KES <%= price %>.00</span>
+            <a id="proceedLink" href="/details">
                 <button class="proceed-btn">Proceed to Pay</button>
             </a>
         </footer>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const seats = document.querySelectorAll('.seat');
+            const proceedLink = document.getElementById('proceedLink');
+            let selectedSeat = '';
+
+            seats.forEach(seat => {
+                seat.addEventListener('click', () => {
+                    seats.forEach(s => s.classList.remove('selected'));
+                    seat.classList.add('selected');
+                    selectedSeat = seat.getAttribute('data-seat');
+                    proceedLink.setAttribute('href', `/details?seat=${selectedSeat}`);
+                });
+            });
+        });
+    </script>
 </body>
 </html>
