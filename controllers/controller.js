@@ -1,7 +1,9 @@
 const User = require('../models/users');
 const Bus = require('../models/buses');
+const Booked = require('../models/booked');
 const { comparePassword, hashPassword } = require("../security/hashing");
-// Get controllers
+
+// Get authentication controllers
 
 module.exports.login_get = (req, res) => {
     res.render('login');
@@ -35,7 +37,8 @@ module.exports.seatSelection_get = (req, res) => {
 };
 
 module.exports.successBook_get = (req, res) => {
-    res.render('success');
+    const { seat, name, from, to, time, price, date } = req.query;
+    res.render('success', { seat, name, from, to, time, price, date });
 };
 
 // Post controllers
@@ -46,6 +49,7 @@ module.exports.login_post = async (req, res) => {
     if (user) {
         const match = await comparePassword(password, user.password);
         if (match) {
+            req.session.user = user;
             res.redirect('/');
         } else {
             res.redirect('/login');
@@ -67,6 +71,8 @@ module.exports.signup_post = async (req, res) => {
         // console.log(`Hashed Password: ${hashedPassword}`)
         const newUser = await User.create({ name, email, password: hashedPassword });
         // console.log('User registered successfully');
+
+        req.session.user = newUser;
         res.redirect('/');
     }
 };
@@ -82,4 +88,15 @@ module.exports.booking_post = async (req, res) => {
     }
 
     res.render('booking', { buses, ways, date })
+};
+
+module.exports.userDetails_post = async (req, res) => {
+    const { firstName, lastName, idOrPassport, phoneNumber, nationality } = req.body;
+    const { seat, name, from, to, time, price, date } = req.query;
+    try {
+        const bookedUser = await Booked.create({ firstName, lastName, idOrPassport, phoneNumber, nationality });
+        res.redirect(`/success?seat=${seat}&name=${name}&from=${from}&to=${to}&time=${time}&price=${price}&date=${date}`);
+    } catch (err) {
+        throw new Error('User details not saved!!!');
+    }
 };

@@ -1,5 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const session = require('express-session');
 // const mysql = require('mysql');
 const routes = require('./routes/routes');
 require('dotenv').config()
@@ -40,6 +41,12 @@ app.set('views', 'views');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+app.use(session({
+    secret: process.env.SECRET_KEY,
+    resave: false,
+    saveUninitialized: false
+}));
 
 app.use('/', routes);
 

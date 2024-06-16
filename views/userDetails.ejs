@@ -15,27 +15,33 @@
             <div class="passenger-details">
                 <h2>Passenger Details</h2>
                 <div class="seat-details">Passenger 1 details Seat <%= seat %></div>
-                <form>
+                <form method="post">
                     <div class="form-group">
                         <label for="firstname">Firstname</label>
-                        <input type="text" id="firstname" placeholder="First Name">
+                        <input type="text" id="firstname" name="firstName" placeholder="First Name">
                     </div>
                     <div class="form-group">
                         <label for="lastname">Lastname</label>
-                        <input type="text" id="lastname" placeholder="Last Name">
+                        <input type="text" id="lastname" name="lastName" placeholder="Last Name">
                     </div>
                     <div class="form-group">
                         <label for="phone">Phone number</label>
-                        <input type="text" id="phone" placeholder="e.g 0722000000">
+                        <input type="text" id="phone" name="phoneNumber" placeholder="e.g 0722000000">
                     </div>
                     <div class="form-group">
                         <label for="idpassport">ID number or Passport</label>
-                        <input type="text" id="idpassport" placeholder="ID/Passport">
+                        <input type="text" id="idpassport" name="idOrPassport" placeholder="ID/Passport">
                     </div>
                     <div class="form-group">
                         <label for="nationality">Nationality</label>
-                        <select id="nationality">
+                        <select name="nationality" id="nationality">
                             <option value="">Select</option>
+                            <option value="Kenya">Kenya</option>
+                            <option value="Tanzania">Tanzania</option>
+                            <option value="Uganda">Uganda</option>
+                            <option value="Rwanda">Rwanda</option>
+                            <option value="Ethiopia">Ethiopia</option>
+                            <option value="Congo">Congo</option>
                         </select>
                     </div>
                     <h2>Payment Details</h2>
@@ -58,32 +64,9 @@
                     <button type="submit" class="submit-button" disabled>GO TO PAYMENT</button>
                 </form>
             </div>
-            <div class="ticket-details">
-                <div class="details-box">
-                    <!-- { seat, name, from, to, time } -->
-                    <h3>Departure</h3>
-                    <p><%= from %></p>
-                    <p><%= date %></p>
-                </div>
-                <div class="details-box">
-                    <h3>Dropoff</h3>
-                    <p><%= to %></p>
-                    <p><%= date %></p>
-                </div>
-                <div class="details-box">
-                    <h3><%= ways %>-Way Ticket</h3>
-                    <p>Selected seat(s) No.</p>
-                    <p><%= seat %></p>
-                </div>
-                <div class="details-box">
-                    <h3>Total</h3>
-                    <p>KES  <%= price %>.00</p>
-                </div>
-                <div class="note">
-                    Please Note: Once seats are selected and paid for, they cannot be changed. Tickets are non-refundable.
-                </div>
-            </div>
+            <%- include('./partials/ticket-details.ejs') %>
         </div>
     </div>
+    <script type="module" src="js/script.js"></script>
 </body>
 </html>

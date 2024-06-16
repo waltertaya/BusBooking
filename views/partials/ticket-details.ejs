@@ -1,0 +1,25 @@
+<div class="ticket-details">
+    <div class="details-box">
+        <!-- { seat, name, from, to, time } -->
+        <h3>Departure</h3>
+        <p><%= from %></p>
+        <p><%= date %></p>
+    </div>
+    <div class="details-box">
+        <h3>Dropoff</h3>
+        <p><%= to %></p>
+        <p><%= date %></p>
+    </div>
+    <div class="details-box">
+        <h3><%= ways %>-Way Ticket</h3>
+        <p>Selected seat(s) No.</p>
+        <p><%= seat %></p>
+    </div>
+    <div class="details-box">
+        <h3>Total</h3>
+        <p>KES  <%= price %>.00</p>
+    </div>
+    <div class="note">
+        Please Note: Once seats are selected and paid for, they cannot be changed. Tickets are non-refundable.
+    </div>
+</div>
