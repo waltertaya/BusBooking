@@ -1,0 +1,23 @@
+<section id="availableBuses" >
+    <% if (buses.length === 0) { %>
+        <p></p>
+    <% } else { %>
+        <h2><%= buses[1].from %> → <%= buses[1].to %> <%= ways %> way trip</h2>
+    <% } %>
+    <div class="bus-list">
+        <% for( let index = 0; index < buses.length; index++ ) { %>
+            <div class="bus-item">
+                <div class="bus-info">
+                    <h3><%= buses[index].name %></h3>
+                    <p><%= buses[index].from %> → <%= buses[index].to %></p>
+                    <p><%= buses[index].time %></p>
+                    <p>Remaining Seats: <%= buses[index].remainingSeats %></p>
+                </div>
+                <div class="bus-price">
+                    <p>KSH <%= buses[index].price %>.00</p>
+                    <button>Select Seat</button>
+                </div>
+            </div>
+        <% } %>
+    </div>
+</section>

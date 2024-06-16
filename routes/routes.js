@@ -16,5 +16,6 @@ router.get('/success', controllers.successBook_get);
 // Post routes
 router.post('/login', controllers.login_post);
 router.post('/register', controllers.signup_post);
+router.post('/', controllers.booking_post);
 
 module.exports = router;

@@ -38,7 +38,7 @@ form {
 
 .form-group input,
 .form-group select {
-    width: 100%;
+    width: 90%;
     padding: 10px;
     border: 1px solid #ddd;
     border-radius: 4px;
@@ -99,34 +99,4 @@ button:hover {
 
 .bus-price {
     text-align: right;
-}
-
-#passengerDetails {
-    background: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    margin-top: 20px;
-}
-
-#passengerDetails h2 {
-    margin-bottom: 20px;
-}
-
-#detailsForm label {
-    display: block;
-    margin-bottom: 5px;
-}
-
-#detailsForm input,
-#detailsForm select {
-    width: calc(100% - 20px);
-    padding: 10px;
-    margin-bottom: 20px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-}
-
-#detailsForm button {
-    padding: 10px 20px;
 }

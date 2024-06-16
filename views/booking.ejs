@@ -9,94 +9,44 @@
 <body>
     <div class="booking-container">
         <header>
-            <h1>Book affordable buses, trains & flights.</h1>
-            <form id="searchForm">
+            <h1>Book affordable buses</h1>
+            <form id="searchForm" method="post">
                 <div class="form-group">
-                    <input type="text" id="from" name="from" placeholder="From" required>
-                    <ul class="dropdown">
-                        <li>Nairobi</li>
-                        <li>Mombasa</li>
-                        <li>Kisumu</li>
-                        <li>Busia</li>
-                        <li>Sirare</li>
-                        <li>Mumias</li>
-                        <li>Malaba</li>
-                    </ul>
+                    <select type="text" id="from" name="from" placeholder="From" required>
+                        <option value="">From</option>
+                        <option value="NAIROBI">Nairobi</option>
+                        <option value="MOMBASA">Mombasa</option>
+                        <option value="KISUMU">Kisumu</option>
+                        <option value="BUSIA">Busia</option>
+                        <option value="SIRARE">Sirare</option>
+                        <option value="MUMIAS">Mumias</option>
+                        <option value="MALABA">Malaba</option>
+                    </select>
                 </div>
                 <div class="form-group">
-                    <input type="text" id="to" name="to" placeholder="To" required>
+                    <select type="text" id="to" name="to" placeholder="To" required>
+                        <option value="">To</option>
+                        <option value="NAIROBI">Nairobi</option>
+                        <option value="MOMBASA">Mombasa</option>
+                        <option value="KISUMU">Kisumu</option>
+                        <option value="BUSIA">Busia</option>
+                        <option value="SIRARE">Sirare</option>
+                        <option value="MUMIAS">Mumias</option>
+                        <option value="MALABA">Malaba</option>
+                    </select>
                 </div>
                 <div class="form-group">
                     <input type="date" id="date" name="date" required>
                 </div>
                 <div class="form-group">
-                    <input type="checkbox" id="return" name="return">
+                    <input type="checkbox" id="return" name="twoWay">
                     <label for="return">Add Return</label>
                 </div>
                 <button type="submit">Search</button>
             </form>
         </header>
         <main>
-            <section id="availableBuses">
-                <h2>Nairobi → Kisumu one way trip</h2>
-                <div class="bus-list">
-                    <div class="bus-item">
-                        <div class="bus-info">
-                            <h3>EasyCoach</h3>
-                            <p>NAIROBI → KISUMU</p>
-                            <p>6:45 AM - 1:00 PM</p>
-                            <p>Remaining Seats: 45</p>
-                        </div>
-                        <div class="bus-price">
-                            <p>KSH 1750.00</p>
-                            <button>Select Seat</button>
-                        </div>
-                    </div>
-                    <div class="bus-item">
-                        <div class="bus-info">
-                            <h3>Greenline</h3>
-                            <p>NAIROBI → KISUMU</p>
-                            <p>8:00 AM - 6:00 PM</p>
-                            <p>Remaining Seats: 67</p>
-                        </div>
-                        <div class="bus-price">
-                            <p>KSH 1000.00</p>
-                            <button>Select Seat</button>
-                        </div>
-                    </div>
-                    <!-- Repeat for other bus options -->
-                </div>
-            </section>
-            <section id="passengerDetails" style="display: none;">
-                <h2>Passenger Details</h2>
-                <form id="detailsForm">
-                    <label for="firstName">First Name:</label>
-                    <input type="text" id="firstName" name="firstName" required>
-                    
-                    <label for="lastName">Last Name:</label>
-                    <input type="text" id="lastName" name="lastName" required>
-                    
-                    <label for="phoneNumber">Phone Number:</label>
-                    <input type="text" id="phoneNumber" name="phoneNumber" required>
-                    
-                    <label for="idNumber">ID Number or Passport:</label>
-                    <input type="text" id="idNumber" name="idNumber" required>
-                    
-                    <label for="nationality">Nationality:</label>
-                    <input type="text" id="nationality" name="nationality" required>
-                    
-                    <label for="email">Email:</label>
-                    <input type="email" id="email" name="email">
-                    
-                    <label for="fullName">Full Name:</label>
-                    <input type="text" id="fullName" name="fullName" required>
-                    
-                    <label for="mpesaNumber">Mpesa Number:</label>
-                    <input type="text" id="mpesaNumber" name="mpesaNumber" required>
-                    
-                    <button type="submit">Go to Payment</button>
-                </form>
-            </section>
+            <%- include('./partials/searchedBuses') %>
         </main>
     </div>
 </body>

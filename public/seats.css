@@ -73,14 +73,6 @@ header h2 {
     background: #888;
 }
 
-.seat.vip {
-    border: 2px solid red;
-}
-
-.seat.business {
-    border: 2px solid blue;
-}
-
 .legend {
     display: flex;
     justify-content: center;

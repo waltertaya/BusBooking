@@ -1,4 +1,5 @@
 const User = require('../models/users');
+const Bus = require('../models/buses');
 const { comparePassword, hashPassword } = require("../security/hashing");
 // Get controllers
 
@@ -15,7 +16,8 @@ module.exports.landing_get = (req, res) => {
 };
 
 module.exports.booking_get = (req, res) => {
-    res.render('booking');
+    const buses = [];
+    res.render('booking', { buses });
 };
 
 module.exports.userDetails_get = (req, res) => {
@@ -61,4 +63,17 @@ module.exports.signup_post = async (req, res) => {
         // console.log('User registered successfully');
         res.redirect('/');
     }
+};
+
+module.exports.booking_post = async (req, res) => {
+    const { from, to, date, twoWay } = req.body;
+    // console.log(`from: ${from}, to: ${to}, date: ${date}, twoWay: ${twoWay}`);
+    const buses = await Bus.find({ from, to });
+    // console.log(buses);
+    let ways = "one";
+    if (!(twoWay === undefined)) {
+        ways = "two";
+    }
+
+    res.render('booking', { buses, ways })
 };
