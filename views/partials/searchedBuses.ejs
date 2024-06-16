@@ -1,25 +1,25 @@
 <section id="availableBuses" >
-    <% if (buses.length === 0) { %>
+    <% if (buses.length === 0 || buses === undefined ) { %>
         <p></p>
     <% } else { %>
-        <h2><%= buses[1].from %> → <%= buses[1].to %> <%= ways %> way trip</h2>
+        <h2><%= buses[0].from %> → <%= buses[0].to %> <%= ways %> way trip</h2>
+        <div class="bus-list">
+            <% for( let index = 0; index < buses.length; index++ ) { %>
+                <div class="bus-item">
+                    <div class="bus-info">
+                        <h3><%= buses[index].name %></h3>
+                        <p><%= buses[index].from %> → <%= buses[index].to %></p>
+                        <p><%= buses[index].time %></p>
+                        <p>Remaining Seats: <%= buses[index].remainingSeats %></p>
+                    </div>
+                    <div class="bus-price">
+                        <p>KSH <%= buses[index].price %>.00</p>
+                        <a href="/seats?name=<%= buses[index].name %>&from=<%= buses[index].from %>&to=<%= buses[index].to %>&price=<%= buses[index].price %>&time=<%= buses[index].time %>&ways=<%= ways %>&date=<%= date %>">
+                            <button>Select Seat</button>
+                        </a>
+                    </div>
+                </div>
+            <% } %>
+        </div>
     <% } %>
-    <div class="bus-list">
-        <% for( let index = 0; index < buses.length; index++ ) { %>
-            <div class="bus-item">
-                <div class="bus-info">
-                    <h3><%= buses[index].name %></h3>
-                    <p><%= buses[index].from %> → <%= buses[index].to %></p>
-                    <p><%= buses[index].time %></p>
-                    <p>Remaining Seats: <%= buses[index].remainingSeats %></p>
-                </div>
-                <div class="bus-price">
-                    <p>KSH <%= buses[index].price %>.00</p>
-                    <a href="/seats?name=<%= buses[index].name %>&from=<%= buses[index].from %>&to=<%= buses[index].to %>&price=<%= buses[index].price %>&time=<%= buses[index].time %>&ways=<%= ways %>&date=<%= date %>">
-                        <button>Select Seat</button>
-                    </a>
-                </div>
-            </div>
-        <% } %>
-    </div>
 </section>

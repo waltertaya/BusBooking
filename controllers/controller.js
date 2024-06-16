@@ -1,3 +1,4 @@
+const { PDFDocument, rgb } = require('pdf-lib');
 const User = require('../models/users');
 const Bus = require('../models/buses');
 const Booked = require('../models/booked');
@@ -98,5 +99,39 @@ module.exports.userDetails_post = async (req, res) => {
         res.redirect(`/success?seat=${seat}&name=${name}&from=${from}&to=${to}&time=${time}&price=${price}&date=${date}`);
     } catch (err) {
         throw new Error('User details not saved!!!');
+    }
+};
+
+module.exports.download_get = async (req, res) => {
+    const { seat, name, from, to, time, price, date } = req.query;
+
+    try {
+        // Create a new PDF document
+        const pdfDoc = await PDFDocument.create();
+        const page = pdfDoc.addPage([600, 400]);
+
+        // Set some text
+        const fontSize = 24;
+        page.drawText('Ticket Details', { x: 50, y: 350, size: fontSize, color: rgb(0, 0, 0) });
+        page.drawText(`Name: ${name}`, { x: 50, y: 310, size: fontSize, color: rgb(0, 0, 0) });
+        page.drawText(`From: ${from}`, { x: 50, y: 270, size: fontSize, color: rgb(0, 0, 0) });
+        page.drawText(`To: ${to}`, { x: 50, y: 230, size: fontSize, color: rgb(0, 0, 0) });
+        page.drawText(`Time: ${time}`, { x: 50, y: 190, size: fontSize, color: rgb(0, 0, 0) });
+        page.drawText(`Date: ${date}`, { x: 50, y: 150, size: fontSize, color: rgb(0, 0, 0) });
+        page.drawText(`Seat: ${seat}`, { x: 50, y: 110, size: fontSize, color: rgb(0, 0, 0) });
+        page.drawText(`Price: ${price}`, { x: 50, y: 70, size: fontSize, color: rgb(0, 0, 0) });
+
+        // Serialize the PDFDocument to bytes (a Uint8Array)
+        const pdfBytes = await pdfDoc.save();
+
+        // Set response headers
+        res.setHeader('Content-Type', 'application/pdf');
+        res.setHeader('Content-Disposition', 'attachment; filename=ticket.pdf');
+
+        // Send the PDF
+        res.send(Buffer.from(pdfBytes));
+    } catch (err) {
+        console.error('Error creating PDF:', err);
+        res.status(500).send('Error creating PDF');
     }
 };

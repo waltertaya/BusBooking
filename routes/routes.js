@@ -29,6 +29,7 @@ router.get('/', controllers.booking_get);
 router.get('/seats', controllers.seatSelection_get);
 router.get('/details', controllers.userDetails_get);
 router.get('/success', controllers.successBook_get);
+router.get('/download-ticket', controllers.download_get);
 
 // Post routes
 

@@ -21,14 +21,10 @@
                 <p><strong>Seat No:</strong> <%= seat %></p>
                 <p><strong>Total:</strong> KES <%= price %>.00</p>
             </div>
-            <button onclick="downloadTicket()">Download Ticket</button>
+            <a href="/download-ticket?seat=<%= seat %>&name=<%= name %>&from=<%= from %>&to=<%= to %>&time=<%= time %>&price=<%= price %>&date=<%= date %>">
+                <button>Download Ticket</button>
+            </a>
         </div>
     </div>
-
-    <script>
-        function downloadTicket() {
-            alert("Downloading ticket...");
-        }
-    </script>
 </body>
 </html>
