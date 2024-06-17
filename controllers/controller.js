@@ -36,19 +36,27 @@ module.exports.booking_get = (req, res) => {
 };
 
 module.exports.userDetails_get = (req, res) => {
-    const { seat, name, from, to, time, price, ways, date } = req.query;
-
-    res.render('userDetails', { seat, name, from, to, time, ways, date, price });
+    const { seat } = req.query;
+    req.session.bookingDetails.seat = seat;
+    res.render('userDetails', req.session.bookingDetails);
 };
 
 module.exports.seatSelection_get = (req, res) => {
-    const { name, from, to, time, price, ways, date } = req.query;
-    res.render('seats', { name, from, to, time, price, ways, date });
+    const { name, time, price } = req.query;
+    req.session.bookingDetails.name = name;
+    req.session.bookingDetails.time = time;
+
+    if ((req.session.bookingDetails.twoWay) === 'two') {
+        req.session.bookingDetails.price = parseFloat(price) * 2;
+    } else {
+        req.session.bookingDetails.price = price;
+    }
+
+    res.render('seats', req.session.bookingDetails);
 };
 
 module.exports.successBook_get = (req, res) => {
-    const { seat, name, from, to, time, price, date } = req.query;
-    res.render('success', { seat, name, from, to, time, price, date });
+    res.render('success', req.session.bookingDetails);
 };
 
 // Post controllers
@@ -93,20 +101,25 @@ module.exports.booking_post = async (req, res) => {
     const { from, to, date, twoWay } = req.body;
     const buses = await Bus.find({ from, to });
 
-    let ways = "one";
-    if (!(twoWay === undefined)) {
-        ways = "two";
+    let ways = 'one';
+
+    if (twoWay === undefined) {
+        ways = "one";
+    } else {
+        ways = 'two';
     }
+
+    const bookingDetails = { from: from, to: to, date: date, twoWay: ways }
+    req.session.bookingDetails = bookingDetails;
 
     res.render('booking', { buses, ways, date })
 };
 
 module.exports.userDetails_post = async (req, res) => {
     const { firstName, lastName, idOrPassport, phoneNumber, nationality } = req.body;
-    const { seat, name, from, to, time, price, date } = req.query;
     try {
         const bookedUser = await Booked.create({ firstName, lastName, idOrPassport, phoneNumber, nationality });
-        res.redirect(`/success?seat=${seat}&name=${name}&from=${from}&to=${to}&time=${time}&price=${price}&date=${date}`);
+        res.redirect('/success');
     } catch (err) {
         // throw new Error('User details not saved!!!');
         res.redirect('/');
@@ -114,7 +127,8 @@ module.exports.userDetails_post = async (req, res) => {
 };
 
 module.exports.download_get = async (req, res) => {
-    const { seat, name, from, to, time, price, date } = req.query;
+    const details = req.session.bookingDetails;
+    const ways = (details.twoWay).toUpperCase();
 
     try {
         // Create a new PDF document
@@ -122,19 +136,19 @@ module.exports.download_get = async (req, res) => {
         const page = pdfDoc.addPage([800, 500]);
 
         // Set some text
-        page.drawText('ONE WAY TRIP', { x: 50, y: 450, size: 24, color: rgb(0, 1, 1) });
+        page.drawText(`${ways} WAY TRIP`, { x: 50, y: 450, size: 24, color: rgb(0, 1, 1) });
         page.drawText('Enjoy your travel', { x: 50, y: 410, size: 12, color: rgb(0, 0, 0) });
 
         const fontSize = 14;
 
         page.drawText('Ticket Details', { x: 50, y: 350, size: 18, color: rgb(0, 1, 1) });
-        page.drawText(`Name: ${name}`, { x: 50, y: 310, size: fontSize, color: rgb(0, 0, 0) });
-        page.drawText(`From: ${from}`, { x: 50, y: 270, size: fontSize, color: rgb(0, 0, 0) });
-        page.drawText(`To: ${to}`, { x: 50, y: 230, size: fontSize, color: rgb(0, 0, 0) });
-        page.drawText(`Time: ${time}`, { x: 50, y: 190, size: fontSize, color: rgb(0, 0, 0) });
-        page.drawText(`Date: ${date}`, { x: 50, y: 150, size: fontSize, color: rgb(0, 0, 0) });
-        page.drawText(`Seat: ${seat}`, { x: 50, y: 110, size: fontSize, color: rgb(0, 0, 0) });
-        page.drawText(`Price: KES ${price}.00`, { x: 50, y: 70, size: fontSize, color: rgb(0, 0, 0) });
+        page.drawText(`Name: ${details.name}`, { x: 50, y: 310, size: fontSize, color: rgb(0, 0, 0) });
+        page.drawText(`From: ${details.from}`, { x: 50, y: 270, size: fontSize, color: rgb(0, 0, 0) });
+        page.drawText(`To: ${details.to}`, { x: 50, y: 230, size: fontSize, color: rgb(0, 0, 0) });
+        page.drawText(`Time: ${details.time}`, { x: 50, y: 190, size: fontSize, color: rgb(0, 0, 0) });
+        page.drawText(`Date: ${details.date}`, { x: 50, y: 150, size: fontSize, color: rgb(0, 0, 0) });
+        page.drawText(`Seat: ${details.seat}`, { x: 50, y: 110, size: fontSize, color: rgb(0, 0, 0) });
+        page.drawText(`Price: KES ${details.price}.00`, { x: 50, y: 70, size: fontSize, color: rgb(0, 0, 0) });
         page.drawText('Copyright: waltertaya.Inc', { x: 50, y: 30, size: fontSize, color: rgb(0, 0, 0) });
 
         // Serialize the PDFDocument to bytes (a Uint8Array)

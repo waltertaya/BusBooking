@@ -24,5 +24,5 @@ const bookedSchema = new Schema({
     }
 });
 
-const Booked = model('booked', bookedSchema);
+const Booked = model('book', bookedSchema);
 module.exports = Booked;
