@@ -12,7 +12,7 @@ const bookedSchema = new Schema({
     idOrPassport: {
         type: String,
         required: true,
-        unique: true
+        // unique: true
     },
     phoneNumber: {
         type: String,

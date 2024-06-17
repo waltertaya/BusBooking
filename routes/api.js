@@ -1,56 +1,22 @@
 const express = require("express");
-const Bus = require('../models/buses')
+const Bus = require('../models/buses');
 
 const api = express.Router();
 
-api.post('/login', async (req, res) => {
-    const { email, password } = req.body;
-    const user = await User.findOne({ email });
-    if (user) {
-        const match = await comparePassword(password, user.password);
-        if (match) {
-            req.session.user = user;
-            res.redirect('/');
-        } else {
-            res.redirect('/login');
-        }
-    } else {
-        res.redirect('/login');
-    }
+api.get('/', async (req, res) => {
+    const buses = await Bus.find();
+    res.status(200).json(buses);
 });
 
-api.post('/signup', async (req, res) => {
-    const { name, email, password } = req.body;
-    const existingUser = await User.findOne({ email });
-    // console.log(`name: ${name}, email: ${email}, password: ${password}`);
-    if (existingUser) {
-        // console.log('User exist already exist');
-        res.redirect('/login');
-    } else {
-        const hashedPassword = await hashPassword(password);
-        // console.log(`Hashed Password: ${hashedPassword}`)
-        const newUser = await User.create({ name, email, password: hashedPassword });
-        // console.log('User registered successfully');
-
-        req.session.user = newUser;
-        res.redirect('/');
+api.get('/:id', async (req, res) => {
+    const { id } = req.params;
+    try {
+        const bus = await Bus.findById(id);
+        res.status(200).json(bus);
+    } catch (err) {
+        res.status(404).json({ message: `The id - ${id} does not exist`, error: err });
     }
 });
-
-router.use((req, res, next) => {
-    if (req.session.user) {
-        next()
-    } else {
-        res.redirect('/landing')
-    }
-});
-
-// name: "EasyCoach",
-// from: "NAIROBI",
-// to: "MOMBASA",
-// time: "08:00 AM",
-// price: 1500,
-// remainingSeats: 25
 
 api.post('/', async (req, res) => {
     const { name, from, to, time, price, remainingSeats } = req.body;
@@ -59,6 +25,16 @@ api.post('/', async (req, res) => {
         res.status(201).json({message: 'Buses added successfully'})
     } catch (err) {
         res.status(400).json({Error: `${err}`});
+    }
+});
+
+api.delete('/:id', async (req, res) => {
+    const { id } = req.params;
+    try {
+        const bus = await Bus.findByIdAndDelete(id);
+        res.status(204).json({ message: `The bus id - ${id} has been deleted`, Deleted: bus });
+    } catch (err) {
+        res.status(404).json({ message: `The id - ${id} does not exist`, error: err });
     }
 });
 

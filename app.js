@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const session = require('express-session');
+const cookieParser = require('cookie-parser');
 // const mysql = require('mysql');
 const routes = require('./routes/routes');
 const api = require('./routes/api');
@@ -44,6 +45,7 @@ app.set('view engine', 'ejs');
 app.set('views', 'views');
 
 app.use(express.json());
+app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 
 app.use(session({
